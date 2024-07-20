@@ -34,7 +34,11 @@ class Record:
         self.phones.append(phone) 
     
     def remove_phone(self, phone_number):
-        self.phones.remove(phone_number)
+        phone = Phone(phone_number)
+        try:
+            self.phones.remove(phone)
+        except ValueError:
+            print(f"Номер {phone_number} не знайдено.")
 
     def edit_phone(self, old_phone_number, new_phone_number):
         old_phone = Phone(old_phone_number)  
@@ -96,6 +100,9 @@ john.edit_phone("1234567890", "1112223333")
 
 # Виведення: Contact name: John, phones: 1112223333; 5555555555
 print(john)  
+
+# Видалення номеру телефону у записі John
+remove = john.remove_phone("1112223333")
 
 # Пошук конкретного телефону у записі John
 found_phone = john.find_phone("5555555555")
