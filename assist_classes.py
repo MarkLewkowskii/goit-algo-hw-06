@@ -38,7 +38,7 @@ class Record:
         try:
             self.phones.remove(phone)
         except ValueError:
-            print(f"Номер {phone_number} не знайдено.")
+            return(f"Номер {phone_number} не знайдено.")
 
     def edit_phone(self, old_phone_number, new_phone_number):
         old_phone = Phone(old_phone_number)  
@@ -64,13 +64,12 @@ class AddressBook(UserDict):
         self.data[record.name.value] = record
     
     def find(self, name):
-        find_name = Name(name)
-        return self.data.get(find_name.value, None)
+        if name in self.data:
+            return self.data.get(name, None)
 
     def delete(self, name):
-        delete_name = Name(name)
-        if delete_name.value in self.data:
-            del self.data[delete_name.value]
+        if name in self.data:
+            del self.data[name]
 
     def __str__(self):
         return '\n'.join(str(record) for record in self.data.values())
@@ -103,6 +102,7 @@ print(john)
 
 # Видалення номеру телефону у записі John
 remove = john.remove_phone("1112223333")
+
 
 # Пошук конкретного телефону у записі John
 found_phone = john.find_phone("5555555555")
